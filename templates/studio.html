@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{business}}{{#if place}} | {{place}}{{/if}}</title>
+<meta name="description" content="{{tagline}}">
+<meta property="og:title" content="{{business}}">
+<meta property="og:description" content="{{tagline}}">
+<meta property="og:type" content="website">
+<link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/studio.css">
+<link rel="stylesheet" href="/zah-editor/zah-editor.css">
+<style>:root{--accent:{{accent}};}</style>
+</head>
+<body class="studio">
+
+<header class="site-head" data-zs="header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <span class="mark" aria-hidden="true">{{initials}}</span>
+      <span class="brand-text"><b>{{business}}</b>{{#if place}}<span class="tag">{{place}}</span>{{/if}}</span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu"><span></span><span></span></button>
+    <nav class="site-nav">
+      <a href="#services">Services</a>
+      <a href="#how">How it works</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    {{#if telHref}}<a class="btn btn-line head-cta" href="{{telHref}}" data-setting-href="phone:tel">{{phone}}</a>{{/if}}
+  </div>
+</header>
+
+<main>
+
+<!-- 01 HERO: asymmetric, headline left, the manifest right -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div class="hero-copy reveal">
+      <p class="eyebrow"><span class="num">01</span> {{industryLabel}}{{#if place}} · {{place}}{{/if}}</p>
+      <h1 data-zs="hero.title">{{tagline}}</h1>
+      <p class="lede" data-zs="hero.lede">{{business}} is the call to make when it has to be done right the first time. Straight answers, a clear price, and work you will not have to think about again.</p>
+      <div class="actions">
+        <a class="btn btn-accent" href="#contact" data-zs="hero.cta">Get a quote <span class="arw">→</span></a>
+        <a class="btn btn-ghost" href="#services">See what we do</a>
+      </div>
+      <dl class="hero-facts">
+        <div><dt>Based in</dt><dd data-zs="hero.place">{{#if place}}{{place}}{{/if}}{{^if place}}your area{{/if}}</dd></div>
+        <div><dt>Response</dt><dd data-zs="hero.response">Same business day</dd></div>
+        <div><dt>Pricing</dt><dd data-zs="hero.pricing">Quoted before we start</dd></div>
+      </dl>
+    </div>
+    <aside class="manifest reveal delay-1" aria-label="Services at a glance">
+      <p class="manifest-head"><span class="num">MANIFEST</span><span class="line"></span><span>{{business}}</span></p>
+      <ol class="manifest-list">
+        {{#serviceRows}}<li><span class="num">{{@i}}</span><span class="name">{{.name}}</span><span class="tick" aria-hidden="true"></span></li>
+        {{/serviceRows}}
+      </ol>
+      <p class="manifest-foot">Every job, the same standard.</p>
+    </aside>
+  </div>
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      {{#services}}<span>{{.}}</span><span class="dot">·</span>{{/services}}
+      {{#services}}<span>{{.}}</span><span class="dot">·</span>{{/services}}
+    </div>
+  </div>
+</section>
+
+<!-- 02 SERVICES: numbered rows, hairline rules -->
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="split">
+      <div class="reveal">
+        <p class="eyebrow"><span class="num">02</span> Services</p>
+        <h2 data-zs="services.title">What we do, and what you get.</h2>
+      </div>
+      <p class="split-note reveal delay-1" data-zs="services.note">Plain descriptions, no packages you have to decode. Ask about anything that is not listed; if it is close to what we do, we will tell you honestly.</p>
+    </div>
+    <ol class="rows">
+      {{#serviceRows}}<li class="row reveal" data-zs="service.{{@i}}">
+        <span class="num">{{@i}}</span>
+        <div class="row-body">
+          <h3>{{.name}}</h3>
+          <p>{{#if .line}}{{.line}}{{/if}}{{^if .line}}Tell us what you need and we will explain how we handle it, what it costs and how long it takes.{{/if}}</p>
+        </div>
+        <a class="row-link" href="#contact">Ask about this <span class="arw">→</span></a>
+      </li>
+      {{/serviceRows}}
+    </ol>
+  </div>
+</section>
+
+<!-- 03 HOW IT WORKS: three steps -->
+<section class="how dark-2" id="how">
+  <div class="wrap">
+    <p class="eyebrow reveal"><span class="num">03</span> How it works</p>
+    <div class="steps">
+      <article class="step reveal">
+        <span class="step-num">1</span>
+        <h3 data-zs="how.1.title">You tell us what you need</h3>
+        <p data-zs="how.1.body">Call, text or use the form below. A few details are enough; we will ask the rest.</p>
+      </article>
+      <article class="step reveal delay-1">
+        <span class="step-num">2</span>
+        <h3 data-zs="how.2.title">You get a straight price</h3>
+        <p data-zs="how.2.body">In writing, before anything starts. No surprises on the invoice, ever.</p>
+      </article>
+      <article class="step reveal delay-2">
+        <span class="step-num">3</span>
+        <h3 data-zs="how.3.title">The work gets done</h3>
+        <p data-zs="how.3.body">On the day we said, to the standard we promised, and we stand behind it afterwards.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 04 ABOUT + stats -->
+<section class="about" id="about">
+  <div class="wrap split">
+    <div class="reveal">
+      <p class="eyebrow"><span class="num">04</span> About</p>
+      <h2 data-zs="about.title">Local, accountable, and here to stay.</h2>
+      <p data-zs="about.body">{{business}} is {{#if place}}a {{industryLabel}} business based in {{place}}{{/if}}{{^if place}}an independent {{industryLabel}} business{{/if}}. We are not a franchise and not a call centre: the person who quotes your job is the person responsible for it. That is why people call us back, and why they tell their neighbours.</p>
+      <div class="actions"><a class="btn btn-accent" href="#contact">Work with us <span class="arw">→</span></a></div>
+    </div>
+    <ul class="stats reveal delay-1" aria-label="Key facts">
+      <li><b data-count="100">100</b><span>% quoted before work begins</span></li>
+      <li><b data-zs="stat.2.value">1</b><span data-zs="stat.2.label">point of contact, start to finish</span></li>
+      <li><b data-zs="stat.3.value">24h</b><span data-zs="stat.3.label">to hear back, usually far less</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 05 CONTACT: the ZAH CRM seam door -->
+<section class="contact dark-2" id="contact">
+  <div class="wrap split">
+    <div class="reveal">
+      <p class="eyebrow"><span class="num">05</span> Contact</p>
+      <h2 data-zs="contact.title">Tell us about the job.</h2>
+      <p data-zs="contact.lede">A sentence or two is plenty. You will hear back the same business day.</p>
+      <ul class="contact-lines">
+        {{#if phone}}<li><span class="k">Phone</span><a href="{{telHref}}" data-setting="phone">{{phone}}</a></li>{{/if}}
+        {{#if email}}<li><span class="k">Email</span><a href="mailto:{{email}}" data-setting="email">{{email}}</a></li>{{/if}}
+        {{#if hours}}<li><span class="k">Hours</span><span data-zs="contact.hours">{{hours}}</span></li>{{/if}}
+        {{#if place}}<li><span class="k">Area</span><span data-zs="contact.area">{{place}} and surrounding</span></li>{{/if}}
+      </ul>
+    </div>
+    <form class="form reveal delay-1" method="post" action="{{leadPath}}" data-zs-chrome>
+      <div class="sent" hidden>
+        <b>Got it.</b> Your message is in. We will be in touch shortly{{#if phone}}, or call {{phone}} if it cannot wait{{/if}}.
+      </div>
+      <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
+      <div class="two">
+        <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel"></div>
+      </div>
+      <div class="field"><label for="f-service">What do you need?</label>
+        <select id="f-service" name="service">
+          {{#services}}<option>{{.}}</option>{{/services}}
+          <option>Something else</option>
+        </select>
+      </div>
+      <div class="field"><label for="f-message">Details</label><textarea id="f-message" name="message" rows="4" placeholder="What, where, and when you need it by."></textarea></div>
+      <div class="hp" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+      <button class="btn btn-accent" type="submit">Send <span class="arw">→</span></button>
+      <p class="fine">We reply by email or phone. Nothing you send here is shared or sold.</p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-foot" data-zs="footer">
+  <div class="wrap">
+    <div class="foot-top">
+      <a class="brand" href="/"><span class="mark" aria-hidden="true">{{initials}}</span><span class="brand-text"><b>{{business}}</b>{{#if place}}<span class="tag">{{place}}</span>{{/if}}</span></a>
+      <nav class="foot-nav">
+        <a href="#services">Services</a>
+        <a href="#how">How it works</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; <span class="yr">{{year}}</span> {{business}}</span>
+      {{#if place}}<span>{{place}}</span>{{/if}}
+      <span class="built">Built by <a href="https://zahbrandsolutions.com" target="_blank" rel="noopener" data-zs-credit>ZAH Brand Solutions</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  window.ZAH_EDITOR_CFG = {
+    root: "main",
+    storageKey: "{{storageKey}}",
+    adminHash: "{{editorHash}}",
+    editSelector: ["h1","h2","h3","h4","p","li","blockquote","figcaption","label","b","strong","dd","dt"],
+    widgetSelector: ["img","video",".ed-video","a.btn","button",".row",".step",".manifest",".stats",".form","section"]
+  };
+</script>
+<script src="/zah-pay/client.js"></script>
+<script src="/zah-editor/zah-editor.js"></script>
+<script src="/zah-site/publish.js"></script>
+<script src="/assets/site.js"></script>
+</body>
+</html>

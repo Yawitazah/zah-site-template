@@ -1,0 +1,24 @@
+{
+  "name": "zah-site-template",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The ZAH client-site frame as a deployable starter: every self-serve site from zahbrandsolutions.com/start runs this repo, filled from the client's brief, with every ZAH product installed and mounted.",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test/smoke.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^4.21.2",
+    "zah-crm-seam": "github:Yawitazah/zah-crm-seam",
+    "zah-editor": "github:Yawitazah/zah-editor",
+    "zah-gate-client": "github:Yawitazah/zah-gate-client",
+    "zah-pay": "github:Yawitazah/zah-pay",
+    "zah-site-mcp": "github:Yawitazah/zah-site-mcp"
+  }
+}
