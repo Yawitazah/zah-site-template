@@ -14,6 +14,8 @@ const out = render('{{business}}|{{#serviceRows}}[{{@i}} {{.name}}{{#if .line}}:
 assert.strictEqual(out, 'Northside Plumbing|[01 Water heaters: repair][02 Drains (ask)]|no hours|<b>x</b>|&lt;b&gt;');
 assert.ok(!/\{\{/.test(out));
 
+assert.strictEqual(render('{{#services}}[{{.}}]{{/services}}', b), '[Water heaters: repair][Drains]');
+
 const empty = parseBrief('');
 assert.ok(empty.services.length === 3 && empty.business === 'Your Business');
 console.log('ALL PASSED');
