@@ -197,7 +197,15 @@ app.get('/healthz', (_req, res) => res.json({
 
 app.get('/thanks', (_req, res) => res.sendFile(path.join(BUILT_DIR, 'thanks.html')));
 
-const ROBOTS = ['User-agent: *', 'Allow: /', 'Disallow: /thanks', ...Object.values(DESIGNS).map((d) => `Disallow: ${d.path}`), ''].join('\n');
+/* The owner's back office. Their own domain is where they go looking for it,
+   so /account and /login land on the ZAH Account hub: their site, plan,
+   billing, and the one login that carries through to ZAH CRM.
+   302 and never 301 — the target is a variable so it can move to a per-site
+   subdomain later without a permanently cached redirect fighting the change. */
+const ACCOUNT_URL = (process.env.ACCOUNT_URL || 'https://zahbrandsolutions.com/account').replace(/\/+$/, '');
+app.get(['/account', '/login'], (_req, res) => res.redirect(302, ACCOUNT_URL));
+
+const ROBOTS = ['User-agent: *', 'Allow: /', 'Disallow: /thanks', 'Disallow: /account', 'Disallow: /login', ...Object.values(DESIGNS).map((d) => `Disallow: ${d.path}`), ''].join('\n');
 app.get('/robots.txt', (_req, res) => res.type('text/plain').send(ROBOTS));
 
 // The site's mark: the initials in a sharp square with the accent notch.
