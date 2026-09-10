@@ -84,6 +84,27 @@ app.disable('x-powered-by');
 // Railway puts several proxies in front of the app. `true` is what makes
 // req.ip and req.protocol honest here; `1` resolves to a Railway address.
 app.set('trust proxy', true);
+
+/* ONE SITE, ONE ADDRESS. Both www and the bare name must work, and both must
+   end up in the same place with the path intact. Attach BOTH on Railway, then
+   set CANONICAL_HOST to whichever one is the real address; the other one is
+   redirected here.
+   Off unless CANONICAL_HOST is set, and it only ever redirects that domain's
+   OTHER form. The `*.up.railway.app` address is deliberately left alone: the
+   HQ uptime sweep and /healthz read it directly and must get a 200, not a
+   redirect. 301, because a canonical host is meant to be permanent - if the
+   canonical is ever flipped, expect browsers to hold the old one for a while. */
+const CANONICAL_HOST = String(process.env.CANONICAL_HOST || '').trim().toLowerCase().replace(/^https?:\/\//, '').replace(/\/.*$/, '');
+if (CANONICAL_HOST) {
+  const other = CANONICAL_HOST.startsWith('www.') ? CANONICAL_HOST.slice(4) : `www.${CANONICAL_HOST}`;
+  app.use((req, res, next) => {
+    const host = String(req.headers.host || '').toLowerCase().split(':')[0];
+    if (host !== other) return next();
+    res.set('Cache-Control', 'no-cache');
+    return res.redirect(301, `https://${CANONICAL_HOST}${req.originalUrl}`);
+  });
+}
+
 app.use((_req, res, next) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
