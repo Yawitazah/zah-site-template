@@ -156,7 +156,10 @@ const site = zahSite.mount(app, {
   name: SITE_NAME,
   dataDir: DATA_DIR,
   token: process.env.SITE_MCP_TOKEN,
+  // THE ONE LOGIN: the owner opens the pencil and Publish with the ZAH
+  // Account they pay with. The hash is the spare key: no network needed.
   adminHash: process.env.EDITOR_ADMIN_HASH,
+  accountUrl: process.env.ACCOUNT_URL,
   publicUrl: PUBLIC_URL || undefined,
   pages: [
     // The first page is the template for client-created pages, so the
@@ -218,15 +221,11 @@ app.get('/healthz', (_req, res) => res.json({
 
 app.get('/thanks', (_req, res) => res.sendFile(path.join(BUILT_DIR, 'thanks.html')));
 
-/* The owner's back office. Their own domain is where they go looking for it,
-   so /account and /login land on the ZAH Account hub: their site, plan,
-   billing, and the one login that carries through to ZAH CRM.
-   302 and never 301 — the target is a variable so it can move to a per-site
-   subdomain later without a permanently cached redirect fighting the change. */
-const ACCOUNT_URL = (process.env.ACCOUNT_URL || 'https://zahbrandsolutions.com/account').replace(/\/+$/, '');
-app.get(['/account', '/login'], (_req, res) => res.redirect(302, ACCOUNT_URL));
+/* The owner's back office is ZAH Site MCP's, mounted above: /account,
+   /login, /edit, /crm and /dispatch, all on their own domain, all landing
+   on the one ZAH Account login. Nothing is hand wired here. */
 
-const ROBOTS = ['User-agent: *', 'Allow: /', 'Disallow: /thanks', 'Disallow: /account', 'Disallow: /login', ...Object.values(DESIGNS).map((d) => `Disallow: ${d.path}`), ''].join('\n');
+const ROBOTS = ['User-agent: *', 'Allow: /', 'Disallow: /thanks', 'Disallow: /account', 'Disallow: /login', 'Disallow: /edit', 'Disallow: /crm', 'Disallow: /dispatch', ...Object.values(DESIGNS).map((d) => `Disallow: ${d.path}`), ''].join('\n');
 app.get('/robots.txt', (_req, res) => res.type('text/plain').send(ROBOTS));
 
 // The site's mark: the initials in a sharp square with the accent notch.
